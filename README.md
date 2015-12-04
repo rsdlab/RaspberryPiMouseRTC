@@ -1,6 +1,7 @@
 <h1>Raspberry Pi Mouse用RTコンポーネント</h1>
 
-株式会社アールティで販売しているRaspberry Pi Mouse(http://products.rt-net.jp/micromouse/raspberry-pi-mouse)に対応したRTコンポーネントです．
+株式会社アールティで販売している<a href="http://products.rt-net.jp/micromouse/raspberry-pi-mouse">Raspberry Pi Mouse</a>
+に対応したRTコンポーネントです．
 本RTCを利用する場合は，下記を事前に行ってください．
 
 <ul>
