@@ -1,0 +1,154 @@
+RaspberryPiMouseRTCName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+RaspberryPiMouseRTC uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``RaspberryPiMouseRTCComp`` executable. The ``RaspberryPiMouseRTC`` library
+is available for loading into a manager, using the initialisation function
+``RaspberryPiMouseRTCInit``.
+
+From source
+-----------
+
+Follow these steps to install RaspberryPiMouseRTC from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf RaspberryPiMouseRTC-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd RaspberryPiMouseRTC-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+RaspberryPiMouseRTC can be launched in stand-alone mode by executing the
+``RaspberryPiMouseRTCComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libRaspberryPiMouseRTC.so`` can be loaded into a manager, using the
+initialisation function ``RaspberryPiMouseRTCInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+max_velocity     double             0.2              
+max_acceleration double             0.52             
+max_tangential_velocity double             0.52             
+max_tangential_acceleration double             0.314            
+distance_of_wheels double             0.095            
+diameter_of_wheel double             0.048            
+step_angle       double             1.8              
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+target_velocity_in InPort      RTC::TimedVelocity2D           
+pose_update_in  InPort      RTC::TimedPose2D               
+buzzer_hz_in    InPort      RTC::TimedShort                
+led4bit_in      InPort      RTC::TimedBooleanSeq           
+current_velocity_out OutPort     RTC::TimedVelocity2D           
+current_pose_out OutPort     RTC::TimedPose2D               
+ir_sensor_out   OutPort     RTC::TimedShortSeq             
+switch3bit_out  OutPort     RTC::TimedBooleanSeq           
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/RaspberryPiMouseRTC/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+
