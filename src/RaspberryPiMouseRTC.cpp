@@ -18,7 +18,7 @@ static const char* raspberrypimousertc_spec[] =
 	"description",       "RaspberryPiMouseRTC",
 	"version",           "1.0.0",
 	"vendor",            "Meijo Univ.",
-	"category",          "MobileRobo",
+	"category",          "MobileRobot",
 	"activity_type",     "PERIODIC",
 	"kind",              "DataFlowComponent",
 	"max_instance",      "1",

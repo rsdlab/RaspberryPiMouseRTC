@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Meijo Univ.:MobileRobo:RaspberryPiMouseRTC:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="ASDS" rtc:updateDate="2015-12-04T16:51:21.175+09:00" rtc:creationDate="2015-12-04T16:51:21.175+09:00" rtc:version="1.0.0" rtc:vendor="Meijo Univ." rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="RaspberryPiMouseRTC" rtc:category="MobileRobo" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="RaspberryPiMouseRTC">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="ASDS" rtc:updateDate="2015-12-04T16:51:21.175+09:00" rtc:creationDate="2015-12-04T16:51:21.175+09:00" rtc:version="1.0.0" rtc:vendor="Meijo Univ." rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="RaspberryPiMouseRTC" rtc:category="MobileRobot" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="RaspberryPiMouseRTC">
         <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
     </rtc:BasicInfo>
     <rtc:Actions>
