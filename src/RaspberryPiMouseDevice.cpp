@@ -31,7 +31,7 @@ namespace RPMD
 	RaspberryPiMouseDevice::RaspberryPiMouseDevice()
 		: wheels_distance(0.0), wheel_dir(0.0), step_angle(0.0), max_frequency(), acceleration(), current_frequency(), 
 		target_frequency(), current_x(0.0), current_y(0.0), current_w(0.0), 
-		prev_clock(), current_clock(), moteren("/dev/rtmoteren0"), 
+		prev_clock(), current_clock(), moteren("/dev/rtmotoren0"), 
 		buzzer("/dev/rtbuzzer0"), motor(), led(), push_switch(), 
 		irsensor("/dev/rtlightsensor0")
 	{
