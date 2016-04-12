@@ -110,7 +110,7 @@ namespace RPMD
 	double RaspberryPiMouseDevice::getCurrentTangentialVelocity()
 	{
 		return ((current_frequency[RIGHT] - current_frequency[LEFT])
-			/ wheels_distance) / 2.0 * step_angle * (wheel_dir / 2.0);
+			/ (wheels_distance / 2.0)) / 2.0 * step_angle * (wheel_dir / 2.0);
 	}
 
 	void RaspberryPiMouseDevice::setTargetVelocity(double _v_forward, 
@@ -118,12 +118,16 @@ namespace RPMD
 	{
 		int frequency[nSTM];
 		double _v[nSTM];
+		
 		_v[LEFT] = _v_forward - _v_rotation * wheels_distance / 2.0; 
 		_v[RIGHT] = _v_forward + _v_rotation * wheels_distance / 2.0;
+		
+		
 		for(size_t i = 0; i < nSTM; ++i)
 		{
 			
 			frequency[i] = _v[i] / (wheel_dir / 2.0) / step_angle;
+			//std::cout << frequency[i] << "\t" << max_frequency << std::endl;
 			if(frequency[i] > max_frequency)
 			{
 				frequency[i] = max_frequency;
@@ -207,6 +211,8 @@ namespace RPMD
 		//std::cout << ctime << std::endl;
 		if(diff_time <= 0.0){gettimeofday(&prev_clock, NULL); return;}
 		if(diff_time > 0.5){gettimeofday(&prev_clock, NULL); return;}
+
+		//std::cout << current_frequency[LEFT] << std::endl;
 
 		double v_forward = 
 			(current_frequency[LEFT] + current_frequency[RIGHT]) / 2.0 * (wheel_dir / 2.0) * step_angle; 
