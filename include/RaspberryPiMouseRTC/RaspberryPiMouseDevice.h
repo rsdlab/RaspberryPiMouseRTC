@@ -19,7 +19,8 @@
 //https://github.com/rt-net/RaspberryPiMouse
 ///////////////////////////////////////////////////////////////////////
 #include <string>
-#include <time.h>
+//#include <time.h>
+#include <sys/time.h>
 
 namespace RPMD
 {
@@ -88,8 +89,8 @@ namespace RPMD
 			double current_y;
 			double current_w;
 
-			clock_t prev_clock;
-			clock_t current_clock;
+			struct timeval prev_clock;
+			struct timeval current_clock;
 
 			std::string moteren;
 			std::string buzzer;

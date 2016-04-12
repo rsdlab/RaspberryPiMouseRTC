@@ -52,8 +52,11 @@ namespace RPMD
 			push_switch[i] = ss.str();
 		}
 
-		prev_clock = clock();
-		current_clock = clock();
+		//prev_clock = clock();
+		//current_clock = clock();
+
+		gettimeofday(&prev_clock, NULL);
+		gettimeofday(&current_clock, NULL);
 	}
 
 	RaspberryPiMouseDevice::~RaspberryPiMouseDevice()
@@ -119,6 +122,7 @@ namespace RPMD
 		_v[RIGHT] = _v_forward + _v_rotation * wheels_distance / 2.0;
 		for(size_t i = 0; i < nSTM; ++i)
 		{
+			
 			frequency[i] = _v[i] / (wheel_dir / 2.0) / step_angle;
 			if(frequency[i] > max_frequency)
 			{
@@ -129,8 +133,8 @@ namespace RPMD
 				frequency[i] = -1 * max_frequency;
 			}
 
-			std::cout << "motor_target: " << static_cast< int >(i)
-				<< " frequency: " << frequency[i] << std::endl;
+			//std::cout << "motor_target: " << static_cast< int >(i)
+			//	<< " frequency: " << frequency[i] << std::endl;
 			target_frequency[i] = frequency[i];
 		}
 	}
@@ -194,19 +198,27 @@ namespace RPMD
 
 	void RaspberryPiMouseDevice::proc()
 	{
-		current_clock = clock();
-		double diff_time = 
-			static_cast< double >(current_clock - prev_clock) 
-			/ static_cast< double >(CLOCKS_PER_SEC);
-		if(diff_time < 0.0){prev_clock = clock(); return;}
+		//current_clock = clock();
+		gettimeofday(&current_clock, NULL);
+		double diff_time = (current_clock.tv_sec - prev_clock.tv_sec) + (current_clock.tv_usec - prev_clock.tv_usec) * 1.0E-6;
+		
+		static double ctime = 0;
+		ctime += diff_time;
+		//std::cout << ctime << std::endl;
+		if(diff_time <= 0.0){gettimeofday(&prev_clock, NULL); return;}
+		if(diff_time > 0.5){gettimeofday(&prev_clock, NULL); return;}
 
 		double v_forward = 
-			(current_frequency[LEFT] + current_frequency[RIGHT]) / 2.0; 
+			(current_frequency[LEFT] + current_frequency[RIGHT]) / 2.0 * (wheel_dir / 2.0) * step_angle; 
 		current_x += v_forward * cos(current_w) * diff_time;
 		current_y += v_forward * sin(current_w) * diff_time;
 		current_w += static_cast< double >(current_frequency[RIGHT] - 
-				current_frequency[LEFT]) * wheels_distance / 2.0 * 
+				current_frequency[LEFT]) / 2.0 * (wheel_dir / 2.0) * step_angle / (wheels_distance / 2.0) * 
 				diff_time;
+		//std::cout << current_x << "\t" << current_y << "\t" << current_w << std::endl;
+		//std::cout << v_forward << "\t" << diff_time << std::endl;
+		
+
 
 		double allowed_acc = acceleration * diff_time; 
 		for(size_t i = 0; i < nSTM; ++i)
@@ -231,7 +243,7 @@ namespace RPMD
 			}
 		}
 
-		prev_clock = clock();
+		gettimeofday(&prev_clock, NULL);
 	}
 
 	void RaspberryPiMouseDevice::sendFrequency(STM_e target, int value)

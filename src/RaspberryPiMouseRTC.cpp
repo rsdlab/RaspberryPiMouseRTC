@@ -7,6 +7,9 @@
  * $Id$
  */
 
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "RaspberryPiMouseRTC.h"
 
 // Module specification
@@ -150,6 +153,9 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onActivated(RTC::UniqueId ec_id)
 		m_switch3bit_out.data[i] = false;
 	}
 
+	double step_angle_radian = m_step_angle*M_PI/180;
+	
+
 	m_current_velocity_out.data.vx = 0.0;
 	m_current_velocity_out.data.vy = 0.0;
 	m_current_velocity_out.data.va = 0.0;
@@ -159,12 +165,12 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onActivated(RTC::UniqueId ec_id)
 	m_current_pose_out.data.heading = 0.0;
 
 	rpmd.setBodyParameter(m_distance_of_wheels, m_diameter_of_wheel, 
-			m_step_angle);
+			step_angle_radian);
 
 	rpmd.setMaxFrequency(m_max_velocity / (m_diameter_of_wheel / 2.0)
-			/ m_step_angle);
+			/ step_angle_radian);
 	rpmd.setAcceleration(m_max_acceleration / (m_diameter_of_wheel / 2.0)
-			/ m_step_angle);
+			/ step_angle_radian);
 
 	rpmd.servoON();
 
@@ -185,9 +191,9 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onExecute(RTC::UniqueId ec_id)
 	{
 		m_target_velocity_inIn.read();
 
-		std::cout << "vx: " << m_target_velocity_in.data.vx << std::endl;
-		std::cout << "vy: " << m_target_velocity_in.data.vy << std::endl;
-		std::cout << "va: " << m_target_velocity_in.data.va << std::endl;
+		//std::cout << "vx: " << m_target_velocity_in.data.vx << std::endl;
+		//std::cout << "vy: " << m_target_velocity_in.data.vy << std::endl;
+		//std::cout << "va: " << m_target_velocity_in.data.va << std::endl;
 
 		rpmd.setTargetVelocity(m_target_velocity_in.data.vx, 
 				m_target_velocity_in.data.va);
@@ -208,9 +214,9 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onExecute(RTC::UniqueId ec_id)
 */
 /*
 		rpmd.setVelocity(RPMD::LEFT,
-				vL / (m_diameter_of_wheel / 2.0) / m_step_angle);
+				vL / (m_diameter_of_wheel / 2.0) / step_angle_radian);
 		rpmd.setVelocity(RPMD::RIGHT,
-				vR / (m_diameter_of_wheel / 2.0) / m_step_angle);
+				vR / (m_diameter_of_wheel / 2.0) / step_angle_radian);
 */
 	}
 
@@ -224,20 +230,20 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onExecute(RTC::UniqueId ec_id)
 	if(m_led4bit_inIn.isNew())
 	{
 		m_led4bit_inIn.read();
-		std::cout << "get led command" << std::endl;
+		//std::cout << "get led command" << std::endl;
 
 		for(size_t i = 0; i < static_cast< size_t >(RPMD::nLED); ++i)
 		{
-			std::cout << (m_led4bit_in.data[i] ? "ON " : "OFF ");
+			//std::cout << (m_led4bit_in.data[i] ? "ON " : "OFF ");
 			rpmd.setLED(static_cast< RPMD::LED_e >(i), m_led4bit_in.data[i]);
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 
 	if(m_buzzer_hz_inIn.isNew())
 	{
 		m_buzzer_hz_inIn.read();
-		std::cout << "get buzzer command" << std::endl;
+		//std::cout << "get buzzer command" << std::endl;
 
 		rpmd.setBUZZER(m_buzzer_hz_in.data);
 	}
@@ -246,9 +252,9 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onExecute(RTC::UniqueId ec_id)
 
 /*
 	double current_vL = rpmd.getCurrentVelocity(RPMD::LEFT)
-		* m_step_angle * m_diameter_of_wheel / 2.0;
+		* step_angle_radian * m_diameter_of_wheel / 2.0;
 	double current_vR = rpmd.getCurrentVelocity(RPMD::RIGHT)
-		* m_step_angle * m_diameter_of_wheel / 2.0;
+		* step_angle_radian * m_diameter_of_wheel / 2.0;
 	m_current_velocity.data.vx = (current_vL + current_vR) / 2.0;
 	m_current_velocity.data.va = (current_vR - current_vL)
 		* m_distance_of_wheels / 2.0;
