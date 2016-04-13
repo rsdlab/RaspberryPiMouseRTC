@@ -34,7 +34,7 @@ static const char* raspberrypimousertc_spec[] =
 	"conf.default.max_tangential_acceleration", "0.314",
 	"conf.default.distance_of_wheels", "0.095",
 	"conf.default.diameter_of_wheel", "0.048",
-	"conf.default.step_angle", "1.8",
+	"conf.default.step_angle", "0.9",
 	// Widget
 	"conf.__widget__.max_velocity", "text",
 	"conf.__widget__.max_acceleration", "text",
@@ -111,7 +111,7 @@ RTC::ReturnCode_t RaspberryPiMouseRTC::onInitialize()
 	bindParameter("max_tangential_acceleration", m_max_tangential_acceleration, "0.314");
 	bindParameter("distance_of_wheels", m_distance_of_wheels, "0.095");
 	bindParameter("diameter_of_wheel", m_diameter_of_wheel, "0.048");
-	bindParameter("step_angle", m_step_angle, "1.8");
+	bindParameter("step_angle", m_step_angle, "0.9");
 	// </rtc-template>
 
 	return RTC::RTC_OK;
