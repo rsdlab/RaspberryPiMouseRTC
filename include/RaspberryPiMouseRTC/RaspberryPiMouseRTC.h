@@ -36,6 +36,8 @@ using namespace RTC;
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
 
+#include "RaspberryPiMouseDevice.h"
+
 /*!
  * @class RaspberryPiMouseRTC
  * @brief RaspberryPiMouseRTC
